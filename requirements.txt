@@ -1,0 +1,8 @@
+playwright==1.47.0
+anthropic==0.34.2
+python-dotenv==1.0.1
+PyYAML==6.0.2
+tenacity==9.0.0
+pandas==2.2.3
+pytest==8.3.3
+Pillow==10.4.0

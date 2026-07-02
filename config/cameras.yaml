@@ -1,0 +1,35 @@
+site_url: "https://its.txdot.gov/its/District/DAL/cameras"
+timezone: "America/Chicago"
+interval_minutes: 5
+duration_days: 7
+
+cameras:
+  toll:
+    name: "IH30 @ Loop 12 WB TRDMS Sta 1251-37"
+    slug: "ih30_loop12_wb_trdms_sta_1251_37"
+  traffic:
+    name: "IH30 @ Carrier Pkwy"
+    slug: "ih30_carrier_pkwy"
+
+# Selectors / matching hints for locating cameras on the TxDOT page.
+# The page markup can change; camera_capture.py uses a text-search strategy
+# first and falls back to these hints if needed.
+selectors:
+  camera_list_container: "body"
+  camera_item: "[class*='camera'], [id*='camera'], .card, li"
+  camera_name_attr: "title"
+
+# Screenshot behavior
+screenshot:
+  wait_after_load_ms: 3000
+  wait_after_click_ms: 2000
+  viewport_width: 1600
+  viewport_height: 1000
+  # Minimum pixel dimensions a captured camera element must have to be
+  # accepted as a real snapshot (rejects tiny icons/labels/broken images).
+  min_media_width: 120
+  min_media_height: 90
+
+# Claude model used for vision analysis. Overridable via the
+# ANTHROPIC_MODEL environment variable (takes precedence over this value).
+anthropic_model: "claude-sonnet-4-6"
