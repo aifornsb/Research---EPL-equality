@@ -11,8 +11,8 @@ name: TxDOT Camera Collection (single-run)
 # mode, run `python -m src.main --mode continuous` on your own machine.
 
 on:
-  # schedule:
-  #   - cron: "*/5 * * * *"
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch: {}
 
 # Avoid overlapping runs stepping on the same CSV/image files.
