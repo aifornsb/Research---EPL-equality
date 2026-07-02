@@ -443,3 +443,172 @@ playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at 
 }
 2026-07-02 19:36:21 | INFO     | collector | Traffic rows appended: 12
 2026-07-02 19:36:21 | INFO     | collector | === Collection cycle complete ===
+2026-07-02 19:47:10 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-02 19:47:21 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-02/2026-07-02_14-47-10.jpg
+2026-07-02 19:47:21 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-02/2026-07-02_14-47-10.jpg | timestamp=2026-07-02T14:47:10.702350-05:00
+2026-07-02 19:47:32 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-02/2026-07-02_14-47-21.jpg
+2026-07-02 19:47:32 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-02/2026-07-02_14-47-21.jpg | timestamp=2026-07-02T14:47:21.241276-05:00
+2026-07-02 19:47:35 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.92",
+  "raw_extracted_text": "HOV 2+ 0.62 | TxTag 0.62 | PAY BY MAIL 0.9?",
+  "extraction_confidence": 0.78
+}
+2026-07-02 19:47:35 | INFO     | collector | Toll row appended: ('2026-07-02', '14:47:10', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-02/2026-07-02_14-47-10.jpg')
+2026-07-02 19:47:53 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound/left side)",
+      "vehicle_make": "Freightliner",
+      "vehicle_model": "Cascadia",
+      "vehicle_year_estimate": "2019-2024",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "red",
+      "vehicle_confidence": 0.7,
+      "estimated_price_low": 90000,
+      "estimated_price_high": 160000,
+      "price_confidence": 0.5
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 28000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third general purpose lane from left",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "fourth general purpose lane from left (leftmost left-side GP lane near barrier)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Equinox",
+      "vehicle_year_estimate": "2018-2023",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 32000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane on right side",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "black",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 14000,
+      "estimated_price_high": 30000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane",
+      "vehicle_make": "Peterbilt",
+      "vehicle_model": "389",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "blue",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 80000,
+      "estimated_price_high": 150000,
+      "price_confidence": 0.4
+    },
+    {
+      "sequence_number": 9,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far right general purpose lane, partially cut off",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 10,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far left general purpose lanes, distant vehicles near horizon",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    }
+  ]
+}
+2026-07-02 19:47:53 | INFO     | collector | Traffic rows appended: 10
+2026-07-02 19:47:53 | INFO     | collector | === Collection cycle complete ===
