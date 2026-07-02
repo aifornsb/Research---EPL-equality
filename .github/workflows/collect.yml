@@ -12,7 +12,7 @@ name: TxDOT Camera Collection (single-run)
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2-57/5 * * * *"
   workflow_dispatch: {}
 
 # Avoid overlapping runs stepping on the same CSV/image files.
