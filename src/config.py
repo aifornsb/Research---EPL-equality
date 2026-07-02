@@ -50,6 +50,12 @@ class ScreenshotConfig:
     viewport_height: int = 1000
     min_media_width: int = DEFAULT_MIN_MEDIA_WIDTH
     min_media_height: int = DEFAULT_MIN_MEDIA_HEIGHT
+    # Quality settings. The capture code first tries to download the
+    # camera's ORIGINAL image file at native resolution (lossless — no
+    # scaling or re-encoding). These two settings only affect the
+    # screenshot fallback path used when a direct download isn't possible.
+    jpeg_quality: int = 95          # 1-100, JPEG quality for fallback screenshots
+    device_scale_factor: int = 2    # render page at 2x DPI so fallback shots are sharper
 
 
 @dataclass
@@ -106,6 +112,8 @@ def load_config(config_path: Path | None = None, require_api_key: bool = True) -
         viewport_height=int(shot_raw.get("viewport_height", 1000)),
         min_media_width=int(shot_raw.get("min_media_width", DEFAULT_MIN_MEDIA_WIDTH)),
         min_media_height=int(shot_raw.get("min_media_height", DEFAULT_MIN_MEDIA_HEIGHT)),
+        jpeg_quality=int(shot_raw.get("jpeg_quality", 95)),
+        device_scale_factor=int(shot_raw.get("device_scale_factor", 2)),
     )
 
     api_key = os.getenv("ANTHROPIC_API_KEY", "")

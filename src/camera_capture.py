@@ -30,6 +30,7 @@ Correctness guarantees enforced here:
 """
 from __future__ import annotations
 
+import base64
 import logging
 from dataclasses import dataclass
 from datetime import datetime
@@ -160,15 +161,93 @@ def _locate_camera_tile(page: Page, camera_name: str) -> Locator:
     return fallback if fallback.count() > 0 else label_element
 
 
+def _try_download_native_image(page: Page, media: Locator, dest_path: Path) -> bool:
+    """Best-quality path: save the media at its ORIGINAL, native resolution.
+
+    - <img>: read its resolved URL (el.currentSrc/el.src) and download the
+      raw file bytes through the browser's own request context (shares
+      cookies/headers), writing them to disk untouched — no scaling, no
+      re-encoding, exactly the pixels the camera server published.
+      data: URIs are decoded directly.
+    - <video>: draw the current frame onto an offscreen canvas at the
+      video's native videoWidth x videoHeight and export as JPEG q=0.95.
+      (May fail on cross-origin streams due to canvas tainting — that's
+      fine, we fall back to a screenshot.)
+
+    Returns True if a native-resolution file was written, False otherwise.
+    Never raises — any failure just means "use the screenshot fallback".
+    """
+    try:
+        tag = media.evaluate("el => el.tagName")
+
+        if tag == "IMG":
+            src = media.evaluate("el => el.currentSrc || el.src || ''")
+            if not src:
+                return False
+            if src.startswith("data:"):
+                _, b64 = src.split(",", 1)
+                dest_path.write_bytes(base64.b64decode(b64))
+                logger.info("Saved native image from data: URI -> %s", dest_path)
+                return True
+            response = page.request.get(src, timeout=15000)
+            if not response.ok:
+                logger.warning(
+                    "Native image download returned HTTP %s for %s", response.status, src
+                )
+                return False
+            body = response.body()
+            if len(body) < 1000:  # sanity check: reject tiny error blobs
+                logger.warning("Native image download too small (%d bytes)", len(body))
+                return False
+            dest_path.write_bytes(body)
+            logger.info(
+                "Saved native-resolution image (%d bytes) from %s -> %s",
+                len(body),
+                src,
+                dest_path,
+            )
+            return True
+
+        if tag == "VIDEO":
+            data_url = media.evaluate(
+                """(el) => {
+                    if (!el.videoWidth || !el.videoHeight) return null;
+                    const c = document.createElement('canvas');
+                    c.width = el.videoWidth;
+                    c.height = el.videoHeight;
+                    c.getContext('2d').drawImage(el, 0, 0, c.width, c.height);
+                    try { return c.toDataURL('image/jpeg', 0.95); }
+                    catch (e) { return null; }  // tainted canvas (cross-origin)
+                }"""
+            )
+            if data_url:
+                _, b64 = data_url.split(",", 1)
+                dest_path.write_bytes(base64.b64decode(b64))
+                logger.info("Saved native video frame -> %s", dest_path)
+                return True
+            return False
+
+    except Exception as exc:  # noqa: BLE001 - fall back to screenshot on any error
+        logger.warning("Native-resolution capture failed (%s); using screenshot fallback.", exc)
+    return False
+
+
 def _capture_camera_media(
     page: Page,
     camera_name: str,
     dest_path: Path,
     min_width: int,
     min_height: int,
+    jpeg_quality: int,
 ) -> None:
-    """Find the camera's real media element and screenshot exactly that
-    element (never the label text or the whole card) to dest_path.
+    """Find the camera's real media element and save it at the highest
+    quality possible (never the label text or the whole card).
+
+    Quality strategy, best first:
+    1. Download the original image file / grab a native-resolution video
+       frame (see _try_download_native_image) — full source quality.
+    2. Fall back to an element screenshot at the page's device scale
+       factor (2x by default) saved as JPEG at `jpeg_quality`.
 
     Raises CameraNotFoundError if the camera can't be located, or
     CameraMediaInvalidError if a media element can't be found or is too
@@ -185,7 +264,7 @@ def _capture_camera_media(
     media.scroll_into_view_if_needed(timeout=5000)
 
     # Give lazy-loaded / streaming media a brief moment to actually paint
-    # a frame before we measure and screenshot it.
+    # a frame before we measure and capture it.
     page.wait_for_timeout(500)
 
     width, height = _media_natural_size(media)
@@ -195,7 +274,14 @@ def _capture_camera_media(
             f"(got {width}x{height}, need >= {min_width}x{min_height})"
         )
 
-    media.screenshot(path=str(dest_path))
+    # Tier 1: native-resolution original (no scaling, no re-encode)
+    if _try_download_native_image(page, media, dest_path):
+        return
+
+    # Tier 2: high-quality element screenshot (rendered at 2x DPI via the
+    # context's device_scale_factor, encoded at high JPEG quality)
+    media.screenshot(path=str(dest_path), type="jpeg", quality=jpeg_quality)
+    logger.info("Saved screenshot fallback (quality=%d) -> %s", jpeg_quality, dest_path)
 
 
 @retry(
@@ -216,7 +302,11 @@ def _load_page_and_capture(
                 viewport={
                     "width": config.screenshot.viewport_width,
                     "height": config.screenshot.viewport_height,
-                }
+                },
+                # Render at higher DPI so the screenshot fallback (tier 2)
+                # captures roughly 2x the pixels. Has no effect on tier 1
+                # (native file download), which is already full quality.
+                device_scale_factor=config.screenshot.device_scale_factor,
             )
             page.goto(config.site_url, wait_until="networkidle", timeout=30000)
             page.wait_for_timeout(config.screenshot.wait_after_load_ms)
@@ -226,6 +316,7 @@ def _load_page_and_capture(
                 dest_path,
                 config.screenshot.min_media_width,
                 config.screenshot.min_media_height,
+                config.screenshot.jpeg_quality,
             )
         finally:
             browser.close()
