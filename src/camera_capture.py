@@ -39,7 +39,7 @@ from playwright.sync_api import sync_playwright, Page, Locator, TimeoutError as 
 from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception_type
 
 from src.config import AppConfig, IMAGES_DIR
-from src.utils import image_path_for, now_local
+from src.utils import image_path_for, now_local, safe_folder_name
 
 logger = logging.getLogger("collector")
 
@@ -244,7 +244,10 @@ def capture_snapshot(config: AppConfig, camera_name: str, camera_slug: str) -> S
     doesn't crash the collection loop.
     """
     captured_at = now_local(config.timezone)
-    dest_path = image_path_for(IMAGES_DIR, camera_slug, captured_at)
+    # Images are grouped by the camera's human-readable display name
+    # (sanitized for the filesystem), e.g. data/images/IH30 @ Carrier Pkwy/...
+    # The slug is still used for vehicle_id values in the traffic CSV.
+    dest_path = image_path_for(IMAGES_DIR, safe_folder_name(camera_name), captured_at)
 
     try:
         _load_page_and_capture(config, camera_name, dest_path)

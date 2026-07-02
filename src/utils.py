@@ -67,6 +67,20 @@ def slugify(text: str) -> str:
     return re.sub(r"_+", "_", text).strip("_")
 
 
+def safe_folder_name(text: str) -> str:
+    """Convert a camera display name into a filesystem-safe folder name,
+    keeping it human-readable (spaces and '@' are preserved).
+
+    Only characters that are actually unsafe/reserved on common
+    filesystems are replaced with '_':  / \\ : * ? " < > |  plus any
+    control characters. Leading/trailing whitespace and dots are stripped
+    (trailing dots are invalid on Windows).
+    """
+    cleaned = re.sub(r'[\\/:*?"<>|\x00-\x1f]', "_", text)
+    cleaned = " ".join(cleaned.split())  # collapse runs of whitespace
+    return cleaned.strip(" .") or "unnamed_camera"
+
+
 def extract_json(raw_text: str) -> dict | None:
     """Best-effort extraction of a JSON object from a Claude text response.
 
@@ -100,9 +114,13 @@ def extract_json(raw_text: str) -> dict | None:
     return None
 
 
-def image_path_for(images_dir: Path, camera_slug: str, dt: datetime) -> Path:
-    """Build the standard timestamped image path for a camera snapshot."""
-    date_dir = images_dir / camera_slug / format_date(dt)
+def image_path_for(images_dir: Path, folder_name: str, dt: datetime) -> Path:
+    """Build the standard timestamped image path for a camera snapshot.
+
+    `folder_name` is the per-camera directory name — the camera's display
+    name (sanitized via safe_folder_name), e.g. "IH30 @ Carrier Pkwy".
+    """
+    date_dir = images_dir / folder_name / format_date(dt)
     date_dir.mkdir(parents=True, exist_ok=True)
     filename = f"{format_filename_timestamp(dt)}.jpg"
     return date_dir / filename
