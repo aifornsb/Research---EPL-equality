@@ -24,9 +24,31 @@ def _base_vehicle(**overrides):
         "vehicle_body_type": "sedan",
         "vehicle_color": "silver",
         "vehicle_confidence": 0.8,
+        "estimated_price_low": 14000,
+        "estimated_price_high": 19000,
+        "price_confidence": 0.5,
     }
     v.update(overrides)
     return v
+
+
+def test_validate_vehicle_rejects_missing_price_fields():
+    v = _base_vehicle()
+    del v["estimated_price_low"]
+    assert _validate_vehicle(v) is False
+
+
+def test_validate_vehicle_rejects_inverted_price_range():
+    assert _validate_vehicle(_base_vehicle(estimated_price_low=20000, estimated_price_high=10000)) is False
+
+
+def test_validate_vehicle_rejects_negative_prices():
+    assert _validate_vehicle(_base_vehicle(estimated_price_low=-5)) is False
+
+
+def test_validate_vehicle_accepts_zero_prices():
+    # 0/0 is the "no estimate possible" sentinel and must validate.
+    assert _validate_vehicle(_base_vehicle(estimated_price_low=0, estimated_price_high=0)) is True
 
 
 def test_validate_vehicle_accepts_valid_entry():
