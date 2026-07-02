@@ -2,12 +2,12 @@ name: Test - capture only (no API key needed)
 
 # Manually-triggered smoke test. Runs the automated test suite, then one
 # capture-only cycle (--skip-analysis) against the live TxDOT page.
-# Requires NO secrets and never calls the Claude API.
+# Requires NO secrets and never calls the Claude API — safe to run
+# immediately after uploading the repo, before configuring anything.
 #
-# After the run finishes, open the run's Summary page and download the
-# "capture-test-results" artifact: it contains the captured .jpg files
-# and collector.log, so you can visually confirm both cameras were
-# captured correctly.
+# Captured images are committed back to the repository under data/images/
+# (folders named after each camera), and also uploaded as a downloadable
+# artifact named "capture-test-results" as a backup.
 
 on:
   workflow_dispatch: {}
@@ -16,6 +16,8 @@ jobs:
   test-capture:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -47,6 +49,33 @@ jobs:
           echo ""
           echo "=== captured image files ==="
           find data/images -name "*.jpg" -exec ls -la {} \; || true
+
+      - name: Commit captured images back to the repository
+        if: always()
+        run: |
+          git config user.name "txdot-camera-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/images logs/collector.log 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No new images to commit."
+            exit 0
+          fi
+
+          git commit -m "Add test capture snapshots [skip ci]"
+
+          max_attempts=5
+          attempt=1
+          until git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }}; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "Push failed after $attempt attempts; giving up."
+              exit 1
+            fi
+            echo "Push attempt $attempt failed; retrying..."
+            attempt=$((attempt + 1))
+            sleep $(( (RANDOM % 10) + 5 ))
+          done
+          echo "Push succeeded on attempt $attempt."
 
       - name: Upload captured images and log as artifact
         if: always()
