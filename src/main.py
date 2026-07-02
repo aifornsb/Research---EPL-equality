@@ -131,9 +131,26 @@ def process_traffic_snapshot(
     rows = []
     for vehicle in result.vehicles:
         vehicle_id = f"{timestamp_tag}_{snapshot.camera_slug}_{vehicle.sequence_number}"
+
+        # Pricing: prefer the curated manual lookup table when it has an
+        # entry for this make/model; otherwise use Claude's own estimate
+        # from the vision analysis (price_source="claude_estimate").
         price = estimate_price(
             vehicle.vehicle_make, vehicle.vehicle_model, vehicle.vehicle_year_estimate
         )
+        if price.price_source == "UNKNOWN" and (
+            vehicle.estimated_price_low > 0 or vehicle.estimated_price_high > 0
+        ):
+            price_low = str(vehicle.estimated_price_low)
+            price_high = str(vehicle.estimated_price_high)
+            price_source = "claude_estimate"
+            price_confidence = vehicle.price_confidence
+        else:
+            price_low = price.price_range_low
+            price_high = price.price_range_high
+            price_source = price.price_source
+            price_confidence = price.price_confidence
+
         rows.append(
             {
                 "snapshot_date": format_date(snapshot.captured_at),
@@ -147,12 +164,12 @@ def process_traffic_snapshot(
                 "vehicle_year_estimate": vehicle.vehicle_year_estimate,
                 "vehicle_body_type": vehicle.vehicle_body_type,
                 "vehicle_color": vehicle.vehicle_color,
-                "price_range_low": price.price_range_low,
-                "price_range_high": price.price_range_high,
-                "price_range_currency": price.price_range_currency,
-                "price_source": price.price_source,
+                "price_range_low": price_low,
+                "price_range_high": price_high,
+                "price_range_currency": "USD",
+                "price_source": price_source,
                 "vehicle_confidence": vehicle.vehicle_confidence,
-                "price_confidence": price.price_confidence,
+                "price_confidence": price_confidence,
                 "image_path": str(snapshot.image_path),
             }
         )

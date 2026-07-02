@@ -41,14 +41,26 @@ facing, e.g. "toward camera", "away from camera", "left", "right", or \
 the lane rule above.
 - lane_description: a short free-text description of the specific lane \
 (e.g. "middle express lane 1", "rightmost general purpose lane").
-- vehicle_make, vehicle_model, vehicle_year_estimate: only provide a specific \
-value if it is visually supportable from body shape, badging, or other clear \
-visual cues. Otherwise use "UNKNOWN". Do not guess or hallucinate.
+- vehicle_make, vehicle_model, vehicle_year_estimate: ALWAYS provide your \
+single best guess, even when uncertain — infer from body shape, proportions, \
+grille/light styling, badging, and era-typical design cues. Express your \
+uncertainty through vehicle_confidence rather than by withholding a guess. \
+For the year, a range like "2015-2019" is acceptable. Use "UNKNOWN" ONLY \
+when the vehicle is so small, blurry, or occluded that no reasonable guess \
+is possible at all.
 - vehicle_body_type: e.g. "sedan", "pickup truck", "SUV", "semi-truck", "van", \
-"motorcycle", "bus", or "UNKNOWN" if unclear.
-- vehicle_color: the dominant visible color, or "UNKNOWN" if not determinable.
+"motorcycle", "bus" — best guess; "UNKNOWN" only if truly indeterminable.
+- vehicle_color: the dominant visible color — best guess.
 - vehicle_confidence: a float 0.0-1.0 for your confidence in this vehicle's \
-identification overall.
+identification overall (make/model/year). Low values like 0.2-0.4 are \
+expected and fine for distant or partially visible vehicles.
+- estimated_price_low, estimated_price_high: your best estimate of the \
+typical current US market value range in whole USD for a vehicle of that \
+make/model/age in average used condition (integers, e.g. 12000 and 18000). \
+Base it on your general knowledge of the US car market. If make/model are \
+"UNKNOWN", estimate from body type and apparent age instead. Use 0 for both \
+ONLY if no estimate is possible at all.
+- price_confidence: a float 0.0-1.0 for your confidence in the price range.
 
 If no vehicles are visible, return an empty "vehicles" array.
 
@@ -67,7 +79,10 @@ exactly this schema:
       "vehicle_year_estimate": "string or UNKNOWN",
       "vehicle_body_type": "string or UNKNOWN",
       "vehicle_color": "string or UNKNOWN",
-      "vehicle_confidence": 0.0
+      "vehicle_confidence": 0.0,
+      "estimated_price_low": 0,
+      "estimated_price_high": 0,
+      "price_confidence": 0.0
     }
   ]
 }
@@ -84,6 +99,9 @@ REQUIRED_VEHICLE_KEYS = {
     "vehicle_body_type",
     "vehicle_color",
     "vehicle_confidence",
+    "estimated_price_low",
+    "estimated_price_high",
+    "price_confidence",
 }
 
 
@@ -99,6 +117,9 @@ class VehicleObservation:
     vehicle_body_type: str
     vehicle_color: str
     vehicle_confidence: float
+    estimated_price_low: int
+    estimated_price_high: int
+    price_confidence: float
 
 
 @dataclass
@@ -118,9 +139,16 @@ def _validate_vehicle(v: dict) -> bool:
     try:
         int(v["sequence_number"])
         conf = float(v["vehicle_confidence"])
+        price_conf = float(v["price_confidence"])
+        low = int(float(v["estimated_price_low"]))
+        high = int(float(v["estimated_price_high"]))
     except (TypeError, ValueError):
         return False
-    return 0.0 <= conf <= 1.0
+    if not (0.0 <= conf <= 1.0 and 0.0 <= price_conf <= 1.0):
+        return False
+    if low < 0 or high < 0 or high < low:
+        return False
+    return True
 
 
 def _validate(data: dict) -> bool:
@@ -146,6 +174,9 @@ def _to_observations(data: dict) -> list[VehicleObservation]:
                 vehicle_body_type=str(v["vehicle_body_type"]),
                 vehicle_color=str(v["vehicle_color"]),
                 vehicle_confidence=float(v["vehicle_confidence"]),
+                estimated_price_low=int(float(v["estimated_price_low"])),
+                estimated_price_high=int(float(v["estimated_price_high"])),
+                price_confidence=float(v["price_confidence"]),
             )
         )
     return obs
