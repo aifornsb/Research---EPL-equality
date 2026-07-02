@@ -1,0 +1,107 @@
+name: TxDOT Camera Collection (single-run)
+
+# Runs one capture+analyze+append cycle. The every-5-minutes schedule is
+# COMMENTED OUT below for initial testing — trigger manually from the
+# Actions tab first. Once you've verified one run fills the CSVs
+# correctly, uncomment the two "schedule:" lines to start automatic
+# collection every 5 minutes.
+#
+# GitHub-hosted runners cannot run one job continuously for 7 days, so
+# scheduled 5-minute single-runs are used instead. For true continuous
+# mode, run `python -m src.main --mode continuous` on your own machine.
+
+on:
+  # schedule:
+  #   - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+# Avoid overlapping runs stepping on the same CSV/image files.
+concurrency:
+  group: txdot-camera-collection
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check that ANTHROPIC_API_KEY secret is configured
+        id: check_key
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "ANTHROPIC_API_KEY secret is not set - skipping collection."
+            echo "Add it under Settings > Secrets and variables > Actions to enable."
+            echo "key_present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "key_present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.check_key.outputs.key_present == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip dependencies
+        if: steps.check_key.outputs.key_present == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install Python dependencies
+        if: steps.check_key.outputs.key_present == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        if: steps.check_key.outputs.key_present == 'true'
+        run: python -m playwright install --with-deps chromium
+
+      - name: Sync with latest remote state before capturing
+        if: steps.check_key.outputs.key_present == 'true'
+        run: |
+          git config user.name "txdot-camera-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git pull --rebase origin ${{ github.ref_name }}
+
+      - name: Run one collection cycle
+        if: steps.check_key.outputs.key_present == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m src.main --mode single-run
+
+      - name: Commit and push with rebase-and-retry on conflict
+        if: steps.check_key.outputs.key_present == 'true'
+        run: |
+          git add data/toll_rates.csv data/traffic_observations.csv data/images logs/collector.log data/failed_review 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No new data to commit."
+            exit 0
+          fi
+
+          git commit -m "Add camera snapshot data [skip ci]"
+
+          max_attempts=5
+          attempt=1
+          until git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }}; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "Push failed after $attempt attempts; giving up."
+              exit 1
+            fi
+            echo "Push attempt $attempt failed (likely a concurrent update); retrying..."
+            attempt=$((attempt + 1))
+            sleep $(( (RANDOM % 10) + 5 ))
+          done
+          echo "Push succeeded on attempt $attempt."
