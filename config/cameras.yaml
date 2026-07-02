@@ -29,6 +29,11 @@ screenshot:
   # accepted as a real snapshot (rejects tiny icons/labels/broken images).
   min_media_width: 120
   min_media_height: 90
+  # Image quality. The capture code first tries to download the camera's
+  # ORIGINAL image file at native resolution (lossless). These settings
+  # only affect the screenshot fallback used when that isn't possible:
+  jpeg_quality: 95          # JPEG quality (1-100) for fallback screenshots
+  device_scale_factor: 2    # render page at 2x DPI for sharper fallbacks
 
 # Claude model used for vision analysis. Overridable via the
 # ANTHROPIC_MODEL environment variable (takes precedence over this value).
