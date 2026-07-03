@@ -2477,3 +2477,166 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 13:12:16 | INFO     | collector | Traffic rows appended: 10
 2026-07-03 13:12:16 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 14:41:59 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 14:42:11 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_09-41-59.jpg
+2026-07-03 14:42:11 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_09-41-59.jpg | timestamp=2026-07-03T09:41:59.838800-05:00
+2026-07-03 14:42:22 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_09-42-11.jpg
+2026-07-03 14:42:22 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_09-42-11.jpg | timestamp=2026-07-03T09:42:11.170016-05:00
+2026-07-03 14:42:24 | INFO     | collector | Claude toll-extraction raw response: {"toll_rate_1":"$0.62","toll_rate_2":"$0.62","toll_rate_3":"$0.43","raw_extracted_text":"0.62 0.62 0.43","extraction_confidence":0.72}
+2026-07-03 14:42:24 | INFO     | collector | Toll row appended: ('2026-07-03', '09:41:59', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_09-41-59.jpg')
+2026-07-03 14:42:42 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Civic",
+      "vehicle_year_estimate": "2017-2021",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.35,
+      "estimated_price_low": 14000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.4
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from left general purpose lane (westbound)",
+      "vehicle_make": "Dodge",
+      "vehicle_model": "Charger",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark red/maroon",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 28000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from left general purpose lane (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "Explorer",
+      "vehicle_year_estimate": "2018-2022",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 38000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third from left general purpose lane (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "Mustang",
+      "vehicle_year_estimate": "2018-2023",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 38000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third from left general purpose lane (westbound), mid-distance",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from left general purpose lane (westbound), mid-distance",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark red",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound), far distance",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 28000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane (eastbound side, toward camera direction - right side)",
+      "vehicle_make": "Freightliner",
+      "vehicle_model": "Cascadia",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "silver/gray",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 60000,
+      "estimated_price_high": 120000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 9,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from right general purpose lane (right side)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "black",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 15000,
+      "estimated_price_high": 35000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 10,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from right general purpose lane (right side), closer to camera",
+      "vehicle_make": "Nissan",
+      "vehicle_model": "Leaf",
+      "vehicle_year_estimate": "2018-2023",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.35
+    }
+  ]
+}
+2026-07-03 14:42:42 | INFO     | collector | Traffic rows appended: 10
+2026-07-03 14:42:42 | INFO     | collector | === Collection cycle complete ===
