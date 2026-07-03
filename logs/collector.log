@@ -16014,3 +16014,127 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
   ]
 2026-07-03 17:28:02 | WARNING  | collector | Saved failed image for review: /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/failed_review/2026-07-03_12-27-09.jpg (traffic extraction invalid: Invalid JSON from Claude after retry)
 2026-07-03 17:28:02 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 17:31:58 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 17:32:09 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-31-58.jpg
+2026-07-03 17:32:09 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-31-58.jpg | timestamp=2026-07-03T12:31:58.816173-05:00
+2026-07-03 17:32:19 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-32-09.jpg
+2026-07-03 17:32:19 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-32-09.jpg | timestamp=2026-07-03T12:32:09.319938-05:00
+2026-07-03 17:32:23 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.49",
+  "raw_extracted_text": "HOV 2+ 0.62 | TxTag T 0.62 | PAY BY MAIL 0.49",
+  "extraction_confidence": 0.87
+}
+2026-07-03 17:32:23 | INFO     | collector | Toll row appended: ('2026-07-03', '12:31:58', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-31-58.jpg')
+2026-07-03 17:32:35 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2018-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 26000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-150",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 38000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 15000,
+      "estimated_price_high": 30000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "right express lane",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 35000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right (eastbound or westbound far lanes)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 80000,
+      "estimated_price_high": 150000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "middle-right general purpose lane (far side)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 28000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right (near side, westbound)",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Accord",
+      "vehicle_year_estimate": "2019-2023",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 20000,
+      "estimated_price_high": 30000,
+      "price_confidence": 0.3
+    }
+  ]
+}
+2026-07-03 17:32:35 | INFO     | collector | Traffic rows appended: 7
+2026-07-03 17:32:35 | INFO     | collector | === Collection cycle complete ===
