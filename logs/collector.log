@@ -19860,3 +19860,142 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 19:22:38 | INFO     | collector | Traffic rows appended: 10
 2026-07-03 19:22:38 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 19:26:58 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 19:27:08 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-26-58.jpg
+2026-07-03 19:27:09 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-26-58.jpg | timestamp=2026-07-03T14:26:58.750991-05:00
+2026-07-03 19:27:19 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_14-27-09.jpg
+2026-07-03 19:27:19 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_14-27-09.jpg | timestamp=2026-07-03T14:27:09.037888-05:00
+2026-07-03 19:27:21 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "CLSD",
+  "toll_rate_2": "CLSD",
+  "toll_rate_3": "CLSD",
+  "raw_extracted_text": "HOV 2+ CLSD | TxTag CLSD | PAY BY MAIL CLSD",
+  "extraction_confidence": 0.92
+}
+2026-07-03 19:27:21 | INFO     | collector | Toll row appended: ('2026-07-03', '14:26:58', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-26-58.jpg')
+2026-07-03 19:27:36 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane, westbound",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Accord",
+      "vehicle_year_estimate": "2013-2017",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 14000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2012-2017",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 9000,
+      "estimated_price_high": 16000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "right-center general purpose lane, eastbound or westbound far lanes",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "RAV4",
+      "vehicle_year_estimate": "2013-2018",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far right general purpose lane, distant",
+      "vehicle_make": "Ford",
+      "vehicle_model": "Fusion",
+      "vehicle_year_estimate": "2013-2018",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 14000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from right general purpose lane, eastbound",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Equinox",
+      "vehicle_year_estimate": "2016-2021",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 14000,
+      "estimated_price_high": 24000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane, eastbound",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Civic",
+      "vehicle_year_estimate": "2016-2021",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 13000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far right general purpose lane foreground, eastbound",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far distant center general purpose lane",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 18000,
+      "price_confidence": 0.2
+    }
+  ]
+}
+2026-07-03 19:27:36 | INFO     | collector | Traffic rows appended: 8
+2026-07-03 19:27:36 | INFO     | collector | === Collection cycle complete ===
