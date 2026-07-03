@@ -10,3 +10,4 @@ snapshot_date,snapshot_time,toll_rate_1,toll_rate_2,toll_rate_3,image_path,extra
 0.62
 0.93"
 2026-07-03,06:10:41,$0.62,$0.62,$0.93,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_06-10-41.jpg,0.95,HOV 2+ 0.62 | TxTag 0.62 | PAY BY MAIL 0.93
+2026-07-03,08:11:34,$0.30,$0.62,$0.59,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_08-11-34.jpg,0.52,0.30 / 0.62 / 0.59
