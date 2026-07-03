@@ -20117,3 +20117,157 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 19:32:34 | INFO     | collector | Traffic rows appended: 7
 2026-07-03 19:32:34 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 19:36:58 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 19:37:08 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-36-58.jpg
+2026-07-03 19:37:08 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-36-58.jpg | timestamp=2026-07-03T14:36:58.706032-05:00
+2026-07-03 19:37:19 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_14-37-08.jpg
+2026-07-03 19:37:19 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_14-37-08.jpg | timestamp=2026-07-03T14:37:08.884637-05:00
+2026-07-03 19:37:21 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "UNKNOWN",
+  "toll_rate_2": "UNKNOWN",
+  "toll_rate_3": "UNKNOWN",
+  "raw_extracted_text": "CLSD, CLSD, CLSD",
+  "extraction_confidence": 0.85
+}
+2026-07-03 19:37:21 | INFO     | collector | Toll row appended: ('2026-07-03', '14:36:58', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_14-36-58.jpg')
+2026-07-03 19:37:37 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Honda",
+      "vehicle_model": "CR-V",
+      "vehicle_year_estimate": "2012-2016",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 14000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (westbound)",
+      "vehicle_make": "Volvo",
+      "vehicle_model": "VNL",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 60000,
+      "estimated_price_high": 110000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third general purpose lane from left (westbound)",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Accord",
+      "vehicle_year_estimate": "2013-2017",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 7000,
+      "estimated_price_high": 13000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far right general purpose lane (eastbound), near overpass",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 18000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (eastbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "Explorer",
+      "vehicle_year_estimate": "2011-2015",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 14000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (eastbound)",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Equinox",
+      "vehicle_year_estimate": "2010-2015",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 7000,
+      "estimated_price_high": 13000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "toward camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane (eastbound)",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third general purpose lane from left (eastbound)",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2012-2017",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 9000,
+      "estimated_price_high": 16000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 9,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane (eastbound)",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Silverado 2500HD",
+      "vehicle_year_estimate": "2014-2019",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.4,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 38000,
+      "price_confidence": 0.35
+    }
+  ]
+}
+2026-07-03 19:37:37 | INFO     | collector | Traffic rows appended: 9
+2026-07-03 19:37:37 | INFO     | collector | === Collection cycle complete ===
