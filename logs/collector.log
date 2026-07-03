@@ -2105,3 +2105,82 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 05:08:33 | INFO     | collector | Traffic rows appended: 7
 2026-07-03 05:08:33 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 08:27:01 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 08:27:11 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_03-27-01.jpg
+2026-07-03 08:27:11 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_03-27-01.jpg | timestamp=2026-07-03T03:27:01.122383-05:00
+2026-07-03 08:27:23 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_03-27-11.jpg
+2026-07-03 08:27:23 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_03-27-11.jpg | timestamp=2026-07-03T03:27:11.777523-05:00
+2026-07-03 08:27:25 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.93",
+  "raw_extracted_text": "0.62\n0.62\n0.93",
+  "extraction_confidence": 0.92
+}
+2026-07-03 08:27:25 | INFO     | collector | Toll row appended: ('2026-07-03', '03:27:01', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_03-27-01.jpg')
+2026-07-03 08:27:34 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (bottom-left of frame)",
+      "vehicle_make": "Honda",
+      "vehicle_model": "Civic",
+      "vehicle_year_estimate": "2016-2021",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver/gray",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 12000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "left-center general purpose lane (oncoming traffic side)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "center-right general purpose lane (mid-distance)",
+      "vehicle_make": "Freightliner",
+      "vehicle_model": "Cascadia",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 40000,
+      "estimated_price_high": 90000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "right-side general purpose lane (mid-distance)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "red/dark red",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 22000,
+      "price_confidence": 0.2
+    }
+  ]
+}
+2026-07-03 08:27:34 | INFO     | collector | Traffic rows appended: 4
+2026-07-03 08:27:34 | INFO     | collector | === Collection cycle complete ===
