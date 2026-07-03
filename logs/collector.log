@@ -16277,3 +16277,127 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 17:37:36 | INFO     | collector | Traffic rows appended: 8
 2026-07-03 17:37:36 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 17:41:59 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 17:42:09 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-41-59.jpg
+2026-07-03 17:42:09 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-41-59.jpg | timestamp=2026-07-03T12:41:59.411520-05:00
+2026-07-03 17:42:20 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-42-09.jpg
+2026-07-03 17:42:20 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-42-09.jpg | timestamp=2026-07-03T12:42:09.722531-05:00
+2026-07-03 17:42:23 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.93",
+  "raw_extracted_text": "HOV 2+ 0.62 | TxTag T 0.62 | PAY BY MAIL 0.93",
+  "extraction_confidence": 0.92
+}
+2026-07-03 17:42:23 | INFO     | collector | Toll row appended: ('2026-07-03', '12:41:59', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-41-59.jpg')
+2026-07-03 17:42:36 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-Series",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 32000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second from left general purpose lane (westbound)",
+      "vehicle_make": "Freightliner",
+      "vehicle_model": "Cascadia",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 40000,
+      "estimated_price_high": 90000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third from left general purpose lane (westbound)",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2018-2023",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 14000,
+      "estimated_price_high": 24000,
+      "price_confidence": 0.25
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "middle-left general purpose lane (westbound), distant",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "gray",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far distant general purpose lane (westbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane (westbound), distant",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane (eastbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-150",
+      "vehicle_year_estimate": "2018-2023",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.35,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 45000,
+      "price_confidence": 0.35
+    }
+  ]
+}
+2026-07-03 17:42:36 | INFO     | collector | Traffic rows appended: 7
+2026-07-03 17:42:36 | INFO     | collector | === Collection cycle complete ===
