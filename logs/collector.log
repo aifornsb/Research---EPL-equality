@@ -16619,3 +16619,127 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 17:52:32 | INFO     | collector | Traffic rows appended: 5
 2026-07-03 17:52:32 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 17:56:59 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 17:57:10 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-56-59.jpg
+2026-07-03 17:57:10 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-56-59.jpg | timestamp=2026-07-03T12:56:59.595991-05:00
+2026-07-03 17:57:20 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-57-10.jpg
+2026-07-03 17:57:20 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-57-10.jpg | timestamp=2026-07-03T12:57:10.082742-05:00
+2026-07-03 17:57:23 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.93",
+  "raw_extracted_text": "HOV 2+ 0.62 | TxTag T 0.62 | PAY BY MAIL 0.93",
+  "extraction_confidence": 0.95
+}
+2026-07-03 17:57:23 | INFO     | collector | Toll row appended: ('2026-07-03', '12:56:59', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-56-59.jpg')
+2026-07-03 17:57:35 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Malibu",
+      "vehicle_year_estimate": "2016-2020",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 9000,
+      "estimated_price_high": 16000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane (westbound)",
+      "vehicle_make": "GMC",
+      "vehicle_model": "Sierra",
+      "vehicle_year_estimate": "2019-2023",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "black",
+      "vehicle_confidence": 0.35,
+      "estimated_price_low": 28000,
+      "estimated_price_high": 45000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right (westbound)",
+      "vehicle_make": "Toyota",
+      "vehicle_model": "Camry",
+      "vehicle_year_estimate": "2018-2022",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.22,
+      "estimated_price_low": 14000,
+      "estimated_price_high": 24000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "middle general purpose lane (westbound), distant",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "left general purpose lane (westbound), distant",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far left general purpose lane (westbound), distant near overpass",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "right-center general purpose lane (westbound), distant near overpass",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.2
+    }
+  ]
+}
+2026-07-03 17:57:35 | INFO     | collector | Traffic rows appended: 7
+2026-07-03 17:57:35 | INFO     | collector | === Collection cycle complete ===
