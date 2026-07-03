@@ -1,0 +1,96 @@
+name: TxDOT Collection Loop (precise 5-min intervals)
+
+# Runs a single long job four times a day. Inside each job, an internal
+# loop captures every 5 minutes with precise sleep timing for ~5h50m,
+# committing data after every cycle.
+#
+# Seam minimization: each run is SCHEDULED 15 minutes before the previous
+# block finishes. The concurrency group below makes the new run queue and
+# wait, then start the moment the previous block ends — so the only gap
+# between blocks is the new job's setup time (~1-2 min with warm caches).
+#
+# NOTE: keep the cron in collect.yml commented out while this is active.
+
+on:
+  schedule:
+    - cron: "45 5,11,17,23 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: txdot-camera-collection
+  cancel-in-progress: false
+
+jobs:
+  collect-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 356
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check that ANTHROPIC_API_KEY secret is configured
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "ANTHROPIC_API_KEY secret is not set - cannot collect."
+            exit 1
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Cache Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Collection loop (every 5 minutes for ~5h50m)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          git config user.name "txdot-camera-bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          END=$((SECONDS + 350 * 60))
+          CYCLE=0
+          while [ $SECONDS -lt $END ]; do
+            CYCLE=$((CYCLE + 1))
+            CYCLE_START=$SECONDS
+            echo "=== Loop cycle $CYCLE starting ==="
+
+            python -m src.main --mode single-run || echo "Cycle $CYCLE failed; continuing."
+
+            git add data/toll_rates.csv data/traffic_observations.csv data/images logs/collector.log data/failed_review 2>/dev/null || true
+            if ! git diff --cached --quiet; then
+              git commit -m "Add camera snapshot data [skip ci]"
+              git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }} || echo "Push failed; will retry next cycle."
+            else
+              echo "No new data this cycle."
+            fi
+
+            ELAPSED=$((SECONDS - CYCLE_START))
+            SLEEP_FOR=$((300 - ELAPSED))
+            if [ $SLEEP_FOR -gt 0 ] && [ $((SECONDS + SLEEP_FOR)) -lt $END ]; then
+              echo "Cycle $CYCLE done in ${ELAPSED}s; sleeping ${SLEEP_FOR}s."
+              sleep $SLEEP_FOR
+            fi
+          done
+          echo "Loop window complete after $CYCLE cycles."
