@@ -15131,3 +15131,157 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 17:12:36 | INFO     | collector | Traffic rows appended: 8
 2026-07-03 17:12:36 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 17:16:59 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 17:17:09 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-16-59.jpg
+2026-07-03 17:17:09 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-16-59.jpg | timestamp=2026-07-03T12:16:59.415007-05:00
+2026-07-03 17:17:20 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-17-09.jpg
+2026-07-03 17:17:20 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_12-17-09.jpg | timestamp=2026-07-03T12:17:09.785312-05:00
+2026-07-03 17:17:22 | INFO     | collector | Claude toll-extraction raw response: {
+  "toll_rate_1": "$0.62",
+  "toll_rate_2": "$0.62",
+  "toll_rate_3": "$0.43",
+  "raw_extracted_text": "0.62 / 0.62 / 0.43",
+  "extraction_confidence": 0.82
+}
+2026-07-03 17:17:22 | INFO     | collector | Toll row appended: ('2026-07-03', '12:16:59', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_12-16-59.jpg')
+2026-07-03 17:17:37 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound far left)",
+      "vehicle_make": "Chrysler",
+      "vehicle_model": "Town & Country",
+      "vehicle_year_estimate": "2008-2014",
+      "vehicle_body_type": "van",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 4000,
+      "estimated_price_high": 9000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "Explorer",
+      "vehicle_year_estimate": "2011-2015",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.2,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 14000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (eastbound far left)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 18000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (eastbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 18000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane (eastbound direction)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 18000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far distance center-left general purpose lane (eastbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "UNKNOWN",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 6000,
+      "estimated_price_high": 20000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane (westbound far right)",
+      "vehicle_make": "Chevrolet",
+      "vehicle_model": "Silverado",
+      "vehicle_year_estimate": "2014-2018",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.3,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 30000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right (westbound)",
+      "vehicle_make": "GMC",
+      "vehicle_model": "Sierra",
+      "vehicle_year_estimate": "2014-2019",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 18000,
+      "estimated_price_high": 32000,
+      "price_confidence": 0.3
+    },
+    {
+      "sequence_number": 9,
+      "direction_facing": "toward camera",
+      "lane_type": "General Purpose",
+      "lane_description": "third general purpose lane from right (westbound)",
+      "vehicle_make": "Ford",
+      "vehicle_model": "F-150",
+      "vehicle_year_estimate": "2015-2020",
+      "vehicle_body_type": "pickup truck",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.25,
+      "estimated_price_low": 22000,
+      "estimated_price_high": 38000,
+      "price_confidence": 0.3
+    }
+  ]
+}
+2026-07-03 17:17:37 | INFO     | collector | Traffic rows appended: 9
+2026-07-03 17:17:37 | INFO     | collector | === Collection cycle complete ===
