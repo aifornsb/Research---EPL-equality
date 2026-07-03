@@ -21352,3 +21352,136 @@ navigating to "https://its.txdot.gov/its/District/DAL/cameras", waiting until "n
 }
 2026-07-03 20:02:36 | INFO     | collector | Traffic rows appended: 8
 2026-07-03 20:02:36 | INFO     | collector | === Collection cycle complete ===
+2026-07-03 20:06:59 | INFO     | collector | === Starting collection cycle (skip_analysis=False) ===
+2026-07-03 20:07:09 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_15-06-59.jpg
+2026-07-03 20:07:09 | INFO     | collector | Snapshot captured | camera=IH30 @ Loop 12 WB TRDMS Sta 1251-37 | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_15-06-59.jpg | timestamp=2026-07-03T15:06:59.089854-05:00
+2026-07-03 20:07:19 | INFO     | collector | Saved native image from data: URI -> /home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_15-07-09.jpg
+2026-07-03 20:07:20 | INFO     | collector | Snapshot captured | camera=IH30 @ Carrier Pkwy | path=/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Carrier Pkwy/2026-07-03/2026-07-03_15-07-09.jpg | timestamp=2026-07-03T15:07:09.488865-05:00
+2026-07-03 20:07:22 | INFO     | collector | Claude toll-extraction raw response: {"toll_rate_1":"UNKNOWN","toll_rate_2":"UNKNOWN","toll_rate_3":"UNKNOWN","raw_extracted_text":"CLSD CLSD CLSD","extraction_confidence":0.85}
+2026-07-03 20:07:22 | INFO     | collector | Toll row appended: ('2026-07-03', '15:06:59', '/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-03/2026-07-03_15-06-59.jpg')
+2026-07-03 20:07:35 | INFO     | collector | Claude traffic-extraction raw response: {
+  "vehicles": [
+    {
+      "sequence_number": 1,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "leftmost general purpose lane (westbound)",
+      "vehicle_make": "Freightliner",
+      "vehicle_model": "Cascadia",
+      "vehicle_year_estimate": "2015-2022",
+      "vehicle_body_type": "semi-truck",
+      "vehicle_color": "dark red/maroon",
+      "vehicle_confidence": 0.45,
+      "estimated_price_low": 80000,
+      "estimated_price_high": 150000,
+      "price_confidence": 0.35
+    },
+    {
+      "sequence_number": 2,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from left (westbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark gray",
+      "vehicle_confidence": 0.15,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 3,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "left express lane",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 4,
+      "direction_facing": "away from camera",
+      "lane_type": "Express",
+      "lane_description": "right express lane",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 5,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "second general purpose lane from right (westbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "SUV",
+      "vehicle_color": "white",
+      "vehicle_confidence": 0.12,
+      "estimated_price_low": 10000,
+      "estimated_price_high": 35000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 6,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "rightmost general purpose lane (westbound)",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "dark green",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.2
+    },
+    {
+      "sequence_number": 7,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far background general purpose lane, left side",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "sedan",
+      "vehicle_color": "silver",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.15
+    },
+    {
+      "sequence_number": 8,
+      "direction_facing": "away from camera",
+      "lane_type": "General Purpose",
+      "lane_description": "far background general purpose lane, right side",
+      "vehicle_make": "UNKNOWN",
+      "vehicle_model": "UNKNOWN",
+      "vehicle_year_estimate": "UNKNOWN",
+      "vehicle_body_type": "UNKNOWN",
+      "vehicle_color": "dark",
+      "vehicle_confidence": 0.1,
+      "estimated_price_low": 8000,
+      "estimated_price_high": 25000,
+      "price_confidence": 0.15
+    }
+  ]
+}
+2026-07-03 20:07:35 | INFO     | collector | Traffic rows appended: 8
+2026-07-03 20:07:35 | INFO     | collector | === Collection cycle complete ===
