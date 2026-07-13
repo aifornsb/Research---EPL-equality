@@ -1,0 +1,77 @@
+name: Backfill missed analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max images per camera this run (blank = all)"
+        required: false
+        default: ""
+      dry_run:
+        description: "Dry run: report counts only, no API calls"
+        type: boolean
+        default: false
+
+concurrency:
+  group: txdot-camera-collection
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies (no browser needed)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run backfill
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.limit }}" ]; then
+            ARGS="$ARGS --limit ${{ github.event.inputs.limit }}"
+          fi
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python -m src.backfill $ARGS
+
+      - name: Commit repaired data
+        if: always()
+        run: |
+          git config user.name "txdot-camera-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/toll_rates.csv data/traffic_observations.csv logs/collector.log 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Backfill missed analysis [skip ci]"
+
+          max_attempts=5
+          attempt=1
+          until git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }}; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "Push failed after $attempt attempts; giving up."
+              exit 1
+            fi
+            echo "Push attempt $attempt failed; retrying..."
+            attempt=$((attempt + 1))
+            sleep $(( (RANDOM % 10) + 5 ))
+          done
+          echo "Push succeeded on attempt $attempt."
