@@ -12,9 +12,9 @@ name: TxDOT Collection Loop (precise 5-min intervals)
 # NOTE: keep the cron in collect.yml commented out while this is active.
 
 on:
-  schedule:
+  #schedule:
     #- cron: "45 5,11,17,23 * * *"
-  #workflow_dispatch: {}
+  workflow_dispatch: {}
 
 concurrency:
   group: txdot-camera-collection
