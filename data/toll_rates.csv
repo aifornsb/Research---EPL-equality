@@ -2108,3 +2108,4 @@ snapshot_date,snapshot_time,toll_rate_1,toll_rate_2,toll_rate_3,image_path,extra
 2026-07-15,10:04:15,UNKNOWN,UNKNOWN,UNKNOWN,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-15/2026-07-15_10-04-15.jpg,0.95,CLSD CLSD CLSD
 2026-07-15,11:42:30,CLSD,CLSD,CLSD,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-15/2026-07-15_11-42-30.jpg,0.95,CLSD CLSD CLSD
 2026-07-15,12:55:56,$0.62,$0.62,$0.93,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-15/2026-07-15_12-55-56.jpg,0.82,0.62 / 0.62 / 0.93
+2026-07-15,19:37:57,$0.62,$0.50,UNKNOWN,/home/runner/work/Research---EPL-equality/Research---EPL-equality/data/images/IH30 @ Loop 12 WB TRDMS Sta 1251-37/2026-07-15/2026-07-15_19-37-57.jpg,0.82,HOV 2+ 0.62 | TxTag T 0.50
