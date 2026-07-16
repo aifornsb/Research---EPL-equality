@@ -13,8 +13,8 @@ name: TxDOT Collection Loop (precise 5-min intervals)
 
 on:
   schedule:
-    - cron: "45 5,11,17,23 * * *"
-  workflow_dispatch: {}
+    #- cron: "45 5,11,17,23 * * *"
+  #workflow_dispatch: {}
 
 concurrency:
   group: txdot-camera-collection
