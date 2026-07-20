@@ -1,0 +1,63 @@
+name: Validate dataset (second-pass Claude audit)
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_images:
+        description: "Images to process this run (chunk size)"
+        required: false
+        default: "150"
+      sample:
+        description: "If >0, restrict entire job to a fixed random subsample of this size"
+        required: false
+        default: "0"
+      daylight_only:
+        description: "Only 07:00-20:00 frames (true/false)"
+        required: false
+        default: "false"
+
+# Same guard idea as collect-loop: never write CSVs from two jobs at once.
+# If your collect/backfill workflows use a shared concurrency group name,
+# change this group to match it.
+concurrency:
+  group: csv-writes
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340   # stay under the 6h job limit with headroom to commit
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install anthropic pandas
+
+      - name: Run second-pass validation chunk
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ARGS="--max-images ${{ github.event.inputs.max_images }}"
+          if [ "${{ github.event.inputs.sample }}" != "0" ]; then
+            ARGS="$ARGS --sample ${{ github.event.inputs.sample }}"
+          fi
+          if [ "${{ github.event.inputs.daylight_only }}" = "true" ]; then
+            ARGS="$ARGS --daylight-only"
+          fi
+          python -m src.validate_dataset $ARGS
+
+      - name: Generate agreement report
+        run: python -m src.validation_report || true
+
+      - name: Commit results
+        run: |
+          git config user.name "validation-bot"
+          git config user.email "actions@github.com"
+          git add data/validation_pass2.csv data/validation_report.md
+          git diff --cached --quiet || git commit -m "second-pass validation chunk"
+          git pull --rebase origin main
+          git push
