@@ -1,0 +1,106 @@
+name: Fix Toll Rate UNKNOWNs
+
+# Repairs UNKNOWN cells in data/toll_rates.csv.
+#   - Stage 1 (default): re-parses the raw_extracted_text already in the CSV.
+#     Needs no API key and no images.
+#   - Stage 2 (optional): re-runs Claude vision on the saved snapshot images
+#     for rows that are still UNKNOWN. Enable via the "revision" input; needs
+#     the ANTHROPIC_API_KEY secret and the images committed under data/images.
+#
+# Run it from the Actions tab (Run workflow). It is manual-only by default so
+# it never races the every-5-minute collector; uncomment the schedule block
+# below if you want it to run periodically.
+
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: "Also re-vision stubborn rows with Claude (needs ANTHROPIC_API_KEY + images)"
+        type: boolean
+        default: false
+      limit:
+        description: "Max images to re-vision in Stage 2 (blank = no limit)"
+        type: string
+        default: ""
+      dry_run:
+        description: "Report changes only, do not commit"
+        type: boolean
+        default: false
+  # schedule:
+  #   - cron: "0 6 * * *"   # daily at 06:00 UTC, well clear of the collector
+
+permissions:
+  contents: write
+
+concurrency:
+  # Share the collector's concurrency group so this never writes the CSV at the
+  # same time as a scheduled single-run. Adjust the group name if the collector
+  # workflow uses a different one.
+  group: toll-csv-writer
+  cancel-in-progress: false
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Core deps for the fixer. Stage 2 also needs anthropic + tenacity,
+          # which are already in requirements.txt for this project.
+          pip install -r requirements.txt || pip install pandas pyyaml anthropic tenacity python-dotenv
+
+      - name: Run toll-rate fixer
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: |
+          ARGS="--csv data/toll_rates.csv --no-backup"
+          if [ "${{ inputs.revision }}" = "true" ]; then
+            ARGS="$ARGS --revision"
+            if [ -n "${{ inputs.limit }}" ]; then
+              ARGS="$ARGS --limit ${{ inputs.limit }}"
+            fi
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          echo "Running: python -m src.fix_toll_rates $ARGS"
+          python -m src.fix_toll_rates $ARGS
+
+      - name: Commit and push updated CSV
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          set -e
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- data/toll_rates.csv; then
+            echo "No changes to data/toll_rates.csv; nothing to commit."
+            exit 0
+          fi
+
+          git add data/toll_rates.csv
+          git commit -m "Fix UNKNOWN toll rates from sign text (fix_toll_rates)"
+
+          # Pull-rebase-and-retry in case the collector pushed in the meantime.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed on attempt $i."
+              exit 0
+            fi
+            echo "Push failed (attempt $i); rebasing on latest remote and retrying..."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          done
+
+          echo "Could not push after 5 attempts." >&2
+          exit 1
