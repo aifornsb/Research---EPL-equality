@@ -3,7 +3,7 @@
   "cameras": {
     "IH30 @ Carrier Pkwy": {
       "image_size": [1920, 1080],
-      "calibrated": false,
+      "calibrated": true,
       "express_polygon": [
         [430, 1080],
         [820, 1080],
