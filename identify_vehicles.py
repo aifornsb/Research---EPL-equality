@@ -78,6 +78,70 @@ def parse_timestamp(name: str) -> tuple[str, str]:
     except ValueError:
         return "", ""
     return d, f"{hh}:{mm}:{ss}"
+
+
+# --------------------------------------------------------------------------- #
+# Lane assignment (geometric): a vehicle is Express if its wheels-on-road point
+# falls inside the camera's fixed express-lane region, else General Purpose.
+# The region is defined per camera in a lanes config (see lanes.json / calibrate).
+# --------------------------------------------------------------------------- #
+def load_lane_config(path: str | None) -> dict:
+    if not path:
+        return {}
+    p = Path(path)
+    if not p.exists():
+        logger.warning("lanes config not found at %s; lane_type will be Unknown.", p)
+        return {}
+    try:
+        return json.loads(p.read_text())
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("could not parse lanes config (%s); lane_type will be Unknown.", exc)
+        return {}
+
+
+def camera_polygon(source_path: str, lane_cfg: dict):
+    """Return (polygon, buffer_px) for the camera this image belongs to, matched
+    by substring of a configured camera name against the file path. None if none."""
+    cams = (lane_cfg or {}).get("cameras", {})
+    for name, spec in cams.items():
+        if name and name in source_path:
+            poly = spec.get("express_polygon")
+            if poly and len(poly) >= 3:
+                return [(float(x), float(y)) for x, y in poly], float(spec.get("unknown_buffer_px", 0))
+    return None, 0.0
+
+
+def _point_in_polygon(x: float, y: float, poly: list[tuple[float, float]]) -> bool:
+    """Ray-casting point-in-polygon test (no external dependency)."""
+    inside = False
+    n = len(poly)
+    j = n - 1
+    for i in range(n):
+        xi, yi = poly[i]
+        xj, yj = poly[j]
+        if (yi > y) != (yj > y):
+            x_cross = (xj - xi) * (y - yi) / (yj - yi + 1e-12) + xi
+            if x < x_cross:
+                inside = not inside
+        j = i
+    return inside
+
+
+def classify_lane(bbox: tuple[int, int, int, int], poly, buffer_px: float = 0.0):
+    """Return (lane_type, lane_description, ref_x, ref_y).
+
+    Reference point is the bottom-center of the box (where the vehicle meets the
+    road), which is the most reliable indicator of lane occupancy. If no polygon
+    is configured for the camera, lane_type is Unknown.
+    """
+    x1, y1, x2, y2 = bbox
+    rx, ry = int((x1 + x2) / 2), int(y2)
+    if not poly:
+        return "Unknown", "no lane geometry configured for this camera", rx, ry
+    inside = _point_in_polygon(rx, ry, poly)
+    if inside:
+        return "Express", "barrier-separated center express lane", rx, ry
+    return "General Purpose", "general-purpose lane", rx, ry
 COCO_COARSE = {2: "car", 3: "motorcycle", 5: "bus", 7: "truck"}
 DIRECTIONS = {"toward camera", "away from camera", "left-to-right", "right-to-left", "unknown"}
 
@@ -125,6 +189,10 @@ class Vehicle:
     body_type: str = UNKNOWN
     color: str = UNKNOWN
     direction_facing: str = "unknown"
+    lane_type: str = "Unknown"
+    lane_description: str = ""
+    lane_ref_x: int | None = None
+    lane_ref_y: int | None = None
     make_confidence: float = 0.0
     model_confidence: float = 0.0
     year_confidence: float = 0.0
@@ -323,15 +391,19 @@ def reconcile(primary: dict, second: dict) -> dict:
 
 
 def process_image(source, detector, identifier, thr, crop_long_edge, verify, workers,
-                  save_crops_dir):
+                  save_crops_dir, lane_cfg=None):
     image = load_image_bgr(source)
     dets = detector.detect(image)
     logger.info("%s: %d vehicle(s)", Path(source).name, len(dets))
+    poly, buffer_px = camera_polygon(source, lane_cfg or {})
 
     def build(i_det):
         i, (x1, y1, x2, y2, dconf, coarse) = i_det
         crop = crop_and_upscale(image, (x1, y1, x2, y2), crop_long_edge)
         veh = Vehicle(i, x1, y1, x2, y2, x2 - x1, y2 - y1, round(dconf, 4), coarse)
+        lt, ld, rx, ry = classify_lane((x1, y1, x2, y2), poly, buffer_px)
+        veh.lane_type, veh.lane_description = lt, ld
+        veh.lane_ref_x, veh.lane_ref_y = rx, ry
         try:
             data = identifier.identify(crop)
             if data is not None and verify:
@@ -362,11 +434,12 @@ def process_image(source, detector, identifier, thr, crop_long_edge, verify, wor
 
 CSV_COLUMNS = [
     "image_filename", "snapshot_date", "snapshot_time", "vehicle_index", "coarse_class",
+    "lane_type", "lane_description",
     "make", "model", "year_low",
     "year_high", "direction_facing", "body_type", "color", "identification_status",
     "make_confidence", "model_confidence", "year_confidence", "direction_confidence",
     "detection_confidence", "overall_confidence", "bbox_x1", "bbox_y1", "bbox_x2",
-    "bbox_y2", "crop_width", "crop_height", "notes",
+    "bbox_y2", "crop_width", "crop_height", "lane_ref_x", "lane_ref_y", "notes",
 ]
 
 
@@ -376,7 +449,9 @@ def row_of(image_name: str, v: Vehicle) -> dict:
         "image_filename": image_name,
         "snapshot_date": snapshot_date, "snapshot_time": snapshot_time,
         "vehicle_index": v.vehicle_index,
-        "coarse_class": v.coarse_class, "make": v.make, "model": v.model,
+        "coarse_class": v.coarse_class,
+        "lane_type": v.lane_type, "lane_description": v.lane_description,
+        "make": v.make, "model": v.model,
         "year_low": "" if v.year_low is None else v.year_low,
         "year_high": "" if v.year_high is None else v.year_high,
         "direction_facing": v.direction_facing, "body_type": v.body_type, "color": v.color,
@@ -385,7 +460,10 @@ def row_of(image_name: str, v: Vehicle) -> dict:
         "year_confidence": v.year_confidence, "direction_confidence": v.direction_confidence,
         "detection_confidence": v.detection_confidence, "overall_confidence": v.overall_confidence,
         "bbox_x1": v.bbox_x1, "bbox_y1": v.bbox_y1, "bbox_x2": v.bbox_x2, "bbox_y2": v.bbox_y2,
-        "crop_width": v.crop_width, "crop_height": v.crop_height, "notes": v.notes,
+        "crop_width": v.crop_width, "crop_height": v.crop_height,
+        "lane_ref_x": "" if v.lane_ref_x is None else v.lane_ref_x,
+        "lane_ref_y": "" if v.lane_ref_y is None else v.lane_ref_y,
+        "notes": v.notes,
     }
 
 
@@ -474,6 +552,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--save-crops", action="store_true")
     ap.add_argument("--no-json", action="store_true")
+    ap.add_argument("--lanes", default="lanes.json",
+                    help="Lane-geometry config (per-camera express-lane polygons). "
+                         "If missing, lane_type is Unknown.")
     ap.add_argument("--estimate", action="store_true", help="Print cost projection and exit.")
     ap.add_argument("--avg-vehicles", type=float, default=6.5, help="For --estimate only.")
     args = ap.parse_args(argv)
@@ -502,6 +583,9 @@ def main(argv: list[str] | None = None) -> int:
                      args.min_direction_conf)
     detector = Detector(args.detector, args.image_size, args.det_conf, args.det_iou)
     identifier = Identifier(args.model)
+    lane_cfg = load_lane_config(args.lanes)
+    if lane_cfg.get("cameras"):
+        logger.info("lane geometry loaded for %d camera(s)", len(lane_cfg["cameras"]))
 
     new_file = not csv_path.exists()
     f = open(csv_path, "a", newline="")
@@ -516,7 +600,8 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 vehicles = process_image(src, detector, identifier, thr, args.crop_long_edge,
                                          args.verify, args.workers,
-                                         (out_dir / "crops") if args.save_crops else None)
+                                         (out_dir / "crops") if args.save_crops else None,
+                                         lane_cfg=lane_cfg)
             except Exception as exc:  # noqa: BLE001
                 logger.error("Failed on %s: %s", src, exc)
                 continue

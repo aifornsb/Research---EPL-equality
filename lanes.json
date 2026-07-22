@@ -1,0 +1,16 @@
+{
+  "_README": "Express-lane region per camera, in PIXEL coordinates of the 1920x1080 frame. A vehicle is 'Express' if its wheels-on-road point (bottom-center of its detection box) falls inside express_polygon; otherwise 'General Purpose'. The Carrier Pkwy polygon below is an INITIAL ESTIMATE read from a sample frame (the central barrier-separated corridor between the two solid center lines). Verify/tune it with calibrate_lanes.py, then set calibrated=true. Points are [x, y] in order bottom-left, bottom-right, top-right, top-left; the trapezoid is wide at the frame bottom and narrows toward the underpass.",
+  "cameras": {
+    "IH30 @ Carrier Pkwy": {
+      "image_size": [1920, 1080],
+      "calibrated": false,
+      "express_polygon": [
+        [430, 1080],
+        [820, 1080],
+        [700, 560],
+        [610, 560]
+      ],
+      "unknown_buffer_px": 0
+    }
+  }
+}

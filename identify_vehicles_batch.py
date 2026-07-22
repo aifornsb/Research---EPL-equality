@@ -146,8 +146,8 @@ def submit(inputs, out_dir: Path, model: str, detector, crop_long_edge: int) -> 
             cid = f"r{cid_counter}"
             cid_counter += 1
             image_reqs.append(_request_for(cid, b64, model))
-            image_meta[cid] = {"image": name, "idx": i, "x1": x1, "y1": y1, "x2": x2,
-                               "y2": y2, "cw": x2 - x1, "ch": y2 - y1,
+            image_meta[cid] = {"image": name, "path": src, "idx": i, "x1": x1, "y1": y1,
+                               "x2": x2, "y2": y2, "cw": x2 - x1, "ch": y2 - y1,
                                "dconf": round(dconf, 4), "coarse": coarse}
         est = sum(len(r["params"]["messages"][0]["content"][0]["source"]["data"])
                   for r in image_reqs)
@@ -174,9 +174,10 @@ def _vehicle_from_meta(m: dict) -> iv.Vehicle:
                       m["dconf"], m["coarse"])
 
 
-def collect(out_dir: Path, thr: iv.Thresholds, max_wait: int, poll_every: int = 30) -> int:
+def collect(out_dir: Path, thr: iv.Thresholds, max_wait: int, lane_cfg=None, poll_every: int = 30) -> int:
     import csv
 
+    lane_cfg = lane_cfg or {}
     csv_path = out_dir / "vehicles.csv"
     manifest_path = out_dir / MANIFEST
     manifest = _load_manifest(manifest_path)
@@ -221,6 +222,12 @@ def collect(out_dir: Path, thr: iv.Thresholds, max_wait: int, poll_every: int = 
                 if not m:
                     continue
                 veh = _vehicle_from_meta(m)
+                # geometric lane assignment from the vehicle's position in the frame
+                src_path = m.get("path", m.get("image", ""))
+                poly, buf = iv.camera_polygon(src_path, lane_cfg)
+                lt, ld, rx, ry = iv.classify_lane((m["x1"], m["y1"], m["x2"], m["y2"]), poly, buf)
+                veh.lane_type, veh.lane_description = lt, ld
+                veh.lane_ref_x, veh.lane_ref_y = rx, ry
                 res = entry.result
                 if getattr(res, "type", None) == "succeeded":
                     msg = res.message
@@ -272,6 +279,8 @@ def main(argv=None) -> int:
     ap.add_argument("--recursive", action="store_true")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--max-wait", type=int, default=18000, help="Seconds to poll before exiting.")
+    ap.add_argument("--lanes", default="lanes.json",
+                    help="Lane-geometry config (per-camera express-lane polygons).")
     ap.add_argument("--estimate", action="store_true")
     ap.add_argument("--avg-vehicles", type=float, default=6.5)
     args = ap.parse_args(argv)
@@ -304,7 +313,10 @@ def main(argv=None) -> int:
         detector = iv.Detector(args.detector, args.image_size, args.det_conf, args.det_iou)
         submit(inputs, out_dir, args.model, detector, args.crop_long_edge)
     if args.mode in ("run", "collect"):
-        collect(out_dir, thr, args.max_wait)
+        lane_cfg = iv.load_lane_config(args.lanes)
+        if lane_cfg.get("cameras"):
+            logger.info("lane geometry loaded for %d camera(s)", len(lane_cfg["cameras"]))
+        collect(out_dir, thr, args.max_wait, lane_cfg=lane_cfg)
     return 0
 
 
