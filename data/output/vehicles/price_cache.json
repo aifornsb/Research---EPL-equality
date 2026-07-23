@@ -1,0 +1,101 @@
+{
+  "3|coupe|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Wide range reflecting unknown make/model/year for a 5-8 year old coupe in the Dallas market, spanning economy to entry-luxury."
+  },
+  "3|hatchback|": {
+    "low": 8000.0,
+    "typical": 14000.0,
+    "high": 22000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Broad range for an unspecified 5-8 year old hatchback at typical mileage and average condition in the Dallas market, reflecting high make/model uncertainty."
+  },
+  "2|nissan|sedan|": {
+    "low": 15000.0,
+    "typical": 22000.0,
+    "high": 30000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.4,
+    "basis": "Range spans Nissan sedan lineup (Versa/Sentra/Altima/Maxima) at recent model years with typical mileage in the Dallas market."
+  },
+  "3|sedan|": {
+    "low": 9000.0,
+    "typical": 16000.0,
+    "high": 26000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Wide range reflects unknown make/model for a 5-8 year old sedan in the Dallas market at typical mileage and average condition."
+  },
+  "3|suv|": {
+    "low": 12000.0,
+    "typical": 22000.0,
+    "high": 38000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.35,
+    "basis": "Broad range reflecting unknown make/model/trim for a 5-8 year old SUV at typical mileage and average condition in the Dallas market."
+  },
+  "3|van|": {
+    "low": 12000.0,
+    "typical": 22000.0,
+    "high": 38000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Broad range covering 5-8 year old cargo and passenger vans of unknown make/model at typical mileage and average condition in the Dallas market."
+  },
+  "1|freightliner|cascadia|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Freightliner Cascadia is a Class 8 sleeper tractor spanning many model years (roughly 2010s-2020s); wide range reflects unknown year, engine, and configuration "
+  },
+  "3|pickup truck|": {
+    "low": 15000.0,
+    "typical": 28000.0,
+    "high": 48000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Broad range covering compact-to-full-size pickups (2017-2020) at typical mileage in average condition in the Dallas market, widened for unknown make/model/trim."
+  },
+  "1|chrysler|pacifica|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "No model year or trim specified, so range spans older high-mileage minivans to recent low-mileage or hybrid Pacificas in the Dallas market."
+  },
+  "3|heavy truck|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Wide range reflects unknown make/model/class of a 5-8 year old Class 8 heavy truck in the Dallas market at typical mileage and average condition."
+  },
+  "3|medium truck|": {
+    "low": 22000.0,
+    "typical": 42000.0,
+    "high": 75000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.35,
+    "basis": "Wide range reflecting uncertainty in make/model/year for a 5-8 year old medium-duty truck in the Dallas market, spanning lighter Class 3-4 to heavier Class 5-6 "
+  }
+}

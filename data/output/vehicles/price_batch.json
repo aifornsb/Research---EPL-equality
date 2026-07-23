@@ -1,0 +1,16 @@
+{
+  "batch_id": "msgbatch_01CK737ottvNhhrVVB9BjZta",
+  "cid_to_key": {
+    "s0": "3|medium truck|",
+    "s1": "3|suv|",
+    "s2": "3|pickup truck|",
+    "s3": "3|van|",
+    "s4": "1|chrysler|pacifica|",
+    "s5": "3|sedan|",
+    "s6": "2|nissan|sedan|",
+    "s7": "3|hatchback|",
+    "s8": "1|freightliner|cascadia|",
+    "s9": "3|heavy truck|",
+    "s10": "3|coupe|"
+  }
+}
