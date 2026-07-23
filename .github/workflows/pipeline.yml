@@ -23,6 +23,11 @@ on:
         type: choice
         default: claude-opus-4-8
         options: [claude-opus-4-8, claude-fable-5, claude-sonnet-5, claude-haiku-4-5]
+      price_detail:
+        description: "Coarsest pricing tier (body = most coverage)"
+        type: choice
+        default: body
+        options: [body, make, model]
       location:
         description: "Market/region for price estimates"
         default: "Dallas, Texas"
@@ -108,6 +113,7 @@ jobs:
             --output data/output/vehicles/vehicles_priced.csv \
             --provider "${{ inputs.price_provider }}" \
             --model "${{ inputs.price_model }}" \
+            --detail "${{ inputs.price_detail }}" \
             --location "${{ inputs.location }}"
 
       - name: Note if identification did not finish
