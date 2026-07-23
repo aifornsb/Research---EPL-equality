@@ -1,16 +1,11 @@
 {
-  "batch_id": "msgbatch_01CK737ottvNhhrVVB9BjZta",
+  "batch_id": "msgbatch_01FrSWfnJCHL4VbiJ6jLiz8L",
   "cid_to_key": {
-    "s0": "3|medium truck|",
-    "s1": "3|suv|",
-    "s2": "3|pickup truck|",
-    "s3": "3|van|",
-    "s4": "1|chrysler|pacifica|",
-    "s5": "3|sedan|",
-    "s6": "2|nissan|sedan|",
-    "s7": "3|hatchback|",
-    "s8": "1|freightliner|cascadia|",
-    "s9": "3|heavy truck|",
-    "s10": "3|coupe|"
+    "s0": "2|honda|sedan|",
+    "s1": "2|dodge|pickup truck|",
+    "s2": "1|ford|f-150|",
+    "s3": "1|tesla|model y|2020-2024",
+    "s4": "2|ford|pickup truck|",
+    "s5": "1|tesla|cybertruck|2024-2025"
   }
 }

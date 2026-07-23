@@ -97,5 +97,59 @@
     "source": "claude_body_segment",
     "confidence": 0.35,
     "basis": "Wide range reflecting uncertainty in make/model/year for a 5-8 year old medium-duty truck in the Dallas market, spanning lighter Class 3-4 to heavier Class 5-6 "
+  },
+  "2|dodge|pickup truck|": {
+    "low": 22000.0,
+    "typical": 38000.0,
+    "high": 62000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.35,
+    "basis": "Recent-model Dodge/Ram pickups range widely by trim (Tradesman to Limited) and cab/engine config, so an unspecified model in the Dallas market spans a broad ban"
+  },
+  "2|ford|pickup truck|": {
+    "low": 22000.0,
+    "typical": 42000.0,
+    "high": 70000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.35,
+    "basis": "Wide range covers Ford pickup lineup (Ranger, F-150, Super Duty) across recent model years, trims, and configurations in the Dallas market."
+  },
+  "1|tesla|cybertruck|2024-2025": {
+    "low": 60000.0,
+    "typical": 78000.0,
+    "high": 100000.0,
+    "currency": "USD",
+    "source": "claude_make_model",
+    "confidence": 0.5,
+    "basis": "Broad range reflects Cybertruck trim variation (RWD/AWD/Cyberbeast) and depreciation off original MSRPs in the Dallas market."
+  },
+  "1|ford|f-150|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Wide range reflects unspecified model year, trim, and configuration of a Ford F-150 in the Dallas used market."
+  },
+  "1|tesla|model y|2020-2024": {
+    "low": 24000.0,
+    "typical": 34000.0,
+    "high": 46000.0,
+    "currency": "USD",
+    "source": "claude_make_model",
+    "confidence": 0.6,
+    "basis": "Wide range reflecting the 2020-2024 model years, trim variation (LR/Performance), and recent Tesla price cuts affecting used values in the Dallas market."
+  },
+  "2|honda|sedan|": {
+    "low": 16000.0,
+    "typical": 24000.0,
+    "high": 33000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.35,
+    "basis": "Wide range reflecting unknown Honda sedan model (Civic vs Accord), recent model year, typical mileage and average condition in the Dallas market."
   }
 }
