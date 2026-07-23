@@ -1,0 +1,146 @@
+{
+  "2|nissan|sedan|": {
+    "low": 15000.0,
+    "typical": 22000.0,
+    "high": 30000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.4,
+    "basis": "Wide range covering recent-model-year Nissan sedans (Versa to Maxima) at typical mileage and average condition in the Dallas market."
+  },
+  "3|suv|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Broad range covering 2017-2020 SUVs across economy to premium segments at typical mileage and average condition in the Dallas market."
+  },
+  "3|coupe|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Wide range reflects unknown make/model/year for a 5-8 year old coupe, spanning economy to entry-luxury/sport coupes in the Dallas market."
+  },
+  "1|freightliner|cascadia|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Freightliner Cascadia is a Class 8 sleeper/day-cab truck spanning many model years (roughly 2010-2022), so wide range reflects unspecified year, engine, and con"
+  },
+  "3|van|": {
+    "low": 12000.0,
+    "typical": 24000.0,
+    "high": 40000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.35,
+    "basis": "Wide range reflects uncertainty across minivans and cargo/passenger vans of varying make, model, and trim at 5-8 years old with typical mileage in the Dallas ma"
+  },
+  "3|hatchback|": {
+    "low": 8000.0,
+    "typical": 14000.0,
+    "high": 22000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Broad range for a 5-8 year old hatchback of unspecified make/model at typical mileage and average condition in the Dallas market."
+  },
+  "1|ford|f-150|2009-2014": {
+    "low": 8000.0,
+    "typical": 15000.0,
+    "high": 24000.0,
+    "currency": "USD",
+    "source": "claude_make_model",
+    "confidence": 0.5,
+    "basis": "Wide range reflecting broad 2009-2014 model years, unspecified trim/cab/engine, and typical mileage/condition in the Dallas market."
+  },
+  "2|chrysler|van|": {
+    "low": 18000.0,
+    "typical": 30000.0,
+    "high": 45000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.35,
+    "basis": "Recent-model-year Chrysler van (likely Pacifica/Voyager) in the Dallas market; wide range reflects unknown trim, hybrid vs gas, and specific model year."
+  },
+  "3|heavy truck|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Broad range for a 2017-2020 Class 8 heavy truck (e.g., Freightliner, Peterbilt, Kenworth) at average mileage/condition in the Dallas market, with wide uncertain"
+  },
+  "3|pickup truck|": {
+    "low": 15000.0,
+    "typical": 28000.0,
+    "high": 45000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Wide range reflecting unknown make/model/trim across 5-8 year old pickups in the Dallas market, spanning base compact/mid-size trucks to well-equipped full-size"
+  },
+  "1|tesla|model y|": {
+    "low": 22000.0,
+    "typical": 32000.0,
+    "high": 45000.0,
+    "currency": "USD",
+    "source": "claude_make_model",
+    "confidence": 0.4,
+    "basis": "Wide range reflects unspecified model year/trim (2020-2024) for a Model Y in the Dallas used market at typical mileage and average condition."
+  },
+  "1|tesla|cybertruck|2024-2025": {
+    "low": 55000.0,
+    "typical": 72000.0,
+    "high": 95000.0,
+    "currency": "USD",
+    "source": "claude_make_model",
+    "confidence": 0.5,
+    "basis": "Broad range reflects unspecified trim (RWD/AWD/Cyberbeast) and volatile early-market Cybertruck resale values in the Dallas area."
+  },
+  "3|medium truck|": {
+    "low": 18000.0,
+    "typical": 38000.0,
+    "high": 70000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.35,
+    "basis": "Wide range reflecting unknown make/model/year for a 5-8 year old medium-duty truck (e.g., Class 4-6 box/utility trucks) in the Dallas market, which varies heavi"
+  },
+  "2|honda|sedan|": {
+    "low": 18000.0,
+    "typical": 25000.0,
+    "high": 33000.0,
+    "currency": "USD",
+    "source": "claude_make_body",
+    "confidence": 0.4,
+    "basis": "Recent-model-year Honda sedans (e.g., Civic/Accord) in Dallas span a wide range depending on unknown model and trim, at typical mileage and average condition."
+  },
+  "3|sedan|": {
+    "low": 9000.0,
+    "typical": 16000.0,
+    "high": 25000.0,
+    "currency": "USD",
+    "source": "claude_body_segment",
+    "confidence": 0.4,
+    "basis": "Wide range reflecting unknown make/model/year for a 5-8 year old sedan at typical mileage and average condition in the Dallas market."
+  },
+  "3|bus|": {
+    "low": null,
+    "typical": null,
+    "high": null,
+    "currency": "USD",
+    "source": "low_confidence",
+    "confidence": 0.3,
+    "basis": "Wide range reflects unknown bus type (shuttle/school/transit/coach), varying heavily by size and configuration for a 5-8 year old unit in the Dallas market."
+  }
+}

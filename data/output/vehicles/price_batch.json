@@ -1,0 +1,21 @@
+{
+  "batch_id": "msgbatch_01R889FV1VxT3Ld3oMJV682Q",
+  "cid_to_key": {
+    "s0": "3|pickup truck|",
+    "s1": "1|ford|f-150|2009-2014",
+    "s2": "3|sedan|",
+    "s3": "3|heavy truck|",
+    "s4": "3|coupe|",
+    "s5": "2|honda|sedan|",
+    "s6": "3|suv|",
+    "s7": "3|van|",
+    "s8": "2|chrysler|van|",
+    "s9": "2|nissan|sedan|",
+    "s10": "3|hatchback|",
+    "s11": "3|medium truck|",
+    "s12": "1|freightliner|cascadia|",
+    "s13": "1|tesla|model y|",
+    "s14": "1|tesla|cybertruck|2024-2025",
+    "s15": "3|bus|"
+  }
+}
